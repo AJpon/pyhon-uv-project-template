@@ -59,7 +59,8 @@
 			"ms-python.debugpy",
 			"charliermarsh.ruff",
 			"tamasfe.even-better-toml",
-			"aaron-bond.better-comments"
+			"aaron-bond.better-comments",
+			"streetsidesoftware.code-spell-checker"
 		]
 	},
 	"launch": {

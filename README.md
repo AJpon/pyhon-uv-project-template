@@ -1,1 +1,1 @@
-# Pyhon uv Project Template
+# Python uv Project Template
