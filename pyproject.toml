@@ -1,9 +1,7 @@
 [project]
 name = "python-uv-project-template"
 dynamic = ["version"]
-authors = [
-    {name = "Takahiro Ono"},
-]
+authors = [{ name = "Takahiro Ono" }]
 maintainers = []
 description = "Add your description here"
 readme = "README.md"
@@ -23,6 +21,7 @@ dependencies = []
 dev = [
     "hatchling>=1.27.0",
     "pre-commit>=4.0.1",
+    "pylint>=3.3.7",
     "pytest>=8.3.3",
     "ruff>=0.7.1",
 ]
@@ -48,6 +47,12 @@ path = "src/python_package/__init__.py"
 
 [tool.hatch.envs.default]
 installer = "uv"
+
+[tool.pylint]
+# lint only unsupported features on py311
+disable = ["all"]
+enable = ["F", "E"]
+py-version = "3.11"
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
@@ -80,7 +85,7 @@ exclude = [
     "venv",
 ]
 
-line-length = 120
+line-length = 88
 indent-width = 4
 
 target-version = "py311"
@@ -88,6 +93,7 @@ target-version = "py311"
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F"]
 ignore = []
+extend-select = ["UP"]
 
 fixable = ["ALL"]
 unfixable = []

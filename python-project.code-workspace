@@ -5,18 +5,44 @@
 		}
 	],
 	"settings": {
+		"files.autoSave": "onFocusChange",
 		"files.insertFinalNewline": true,
 		"files.trimFinalNewlines": true,
 		"files.trimTrailingWhitespace": true,
-		"files.autoSave": "onFocusChange",
+		"flake8.enabled": false,
 		"git.autofetch": true,
+		"pylint.enabled": true,
+		"python.analysis.extraPaths": [],
+		"python.analysis.includeAliasesFromUserFiles": true,
+		"python.analysis.stubPath": "typings",
+		"python.analysis.typeEvaluation.enableReachabilityAnalysis": true,
+		"python.autoComplete.extraPaths": [],
+		"python.terminal.activateEnvInCurrentTerminal": true,
+		"python.testing.pytestEnabled": true,
+		"python.testing.unittestEnabled": true,
+		"python.testing.autoTestDiscoverOnSaveEnabled": true,
+		"python.testing.unittestArgs": [
+			"-v",
+			"-s",
+			"./tests",
+			"-p",
+			"test_*.py"
+		],
+		"yaml.completion": true,
+		"yaml.format.enable": true,
+		"yaml.hover": true,
+		"yaml.validate": true,
 		"[jsonc]": {
 			"editor.defaultFormatter": "vscode.json-language-features"
 		},
-		"yaml.format.enable": true,
-		"yaml.completion": true,
-		"yaml.validate": true,
-		"yaml.hover": true,
+		"[python]": {
+			"editor.defaultFormatter": "charliermarsh.ruff",
+			"editor.formatOnSave": true,
+			"editor.codeActionsOnSave": {
+				"source.fixAll.ruff": "explicit",
+				"source.organizeImports.ruff": "explicit"
+			}
+		},
 		"[yaml]": {
 			"editor.insertSpaces": true,
 			"editor.tabSize": 2,
@@ -29,44 +55,27 @@
 			},
 			"editor.defaultFormatter": "redhat.vscode-yaml",
 		},
-		"[python]": {
-			"editor.defaultFormatter": "charliermarsh.ruff",
-			"editor.formatOnSave": true,
-			"editor.codeActionsOnSave": {
-				"source.fixAll.ruff": "explicit",
-				"source.organizeImports.ruff": "explicit"
-			}
-		},
-		"python.analysis.extraPaths": [],
-		"python.autoComplete.extraPaths": [],
-		"python.analysis.stubPath": "typings",
-		"python.testing.pytestEnabled": false,
-		"python.testing.unittestEnabled": true,
-		"python.testing.autoTestDiscoverOnSaveEnabled": true,
-		"python.testing.unittestArgs": [
-			"-v",
-			"-s",
-			"./tests",
-			"-p",
-			"test_*.py"
-		],
 	},
 	"extensions": {
 		"recommendations": [
-			"redhat.vscode-yaml",
-			"ms-python.vscode-pylance",
-			"ms-python.python",
-			"ms-python.debugpy",
-			"charliermarsh.ruff",
-			"tamasfe.even-better-toml",
 			"aaron-bond.better-comments",
-			"streetsidesoftware.code-spell-checker"
-		]
+			"charliermarsh.ruff",
+			"ms-python.debugpy",
+			"ms-python.pylint",
+			"ms-python.python",
+			"ms-python.vscode-pylance",
+			"ms-python.vscode-python-envs",
+			"redhat.vscode-yaml",
+			"streetsidesoftware.code-spell-checker",
+			"streetsidesoftware.code-spell-checker-cspell-bundled-dictionaries",
+			"streetsidesoftware.code-spell-checker-win32",
+			"tamasfe.even-better-toml",
+		],
 	},
 	"launch": {
 		"version": "0.2.0",
 		"configurations": [],
-		"compounds": []
+		"compounds": [],
 	},
 	"tasks": {
 		"version": "2.0.0",
@@ -74,7 +83,7 @@
 			{
 				"label": "Sync dependencies",
 				"command": "uv",
-				"type": "shell",
+				"type": "process",
 				"args": [
 					"sync"
 				],
@@ -83,12 +92,34 @@
 				],
 				"presentation": {
 					"reveal": "always"
-				}
+				},
+				"icon": {
+					"id": "symbol-constructor",
+				},
+			},
+			{
+				"label": "Upgrade dependencies",
+				"command": "uv",
+				"type": "process",
+				"args": [
+					"sync",
+					"--upgrade"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"problemMatcher": [
+					"$tsc"
+				],
+				"icon": {
+					"id": "arrow-up",
+					"color": "terminal.ansiGreen"
+				},
 			},
 			{
 				"label": "Build package",
 				"command": "uv",
-				"type": "shell",
+				"type": "process",
 				"args": [
 					"build"
 				],
@@ -99,7 +130,58 @@
 					"reveal": "always"
 				},
 				"dependsOn": "Sync dependencies",
-				"group": "build"
+				"group": "build",
+				"icon": {
+					"id": "rocket",
+					"color": "terminal.ansiGreen",
+				},
+			},
+			{
+				"label": "pre-commit install",
+				"command": "uv",
+				"type": "process",
+				"args": [
+					"run",
+					"pre-commit",
+					"install"
+				],
+				"problemMatcher": [
+					"$tsc"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"dependsOn": [
+					"Sync dependencies"
+				],
+				"icon": {
+					"id": "symbol-constructor"
+				},
+				"hide": true
+			},
+			{
+				"label": "pre-commit run --all-files",
+				"command": "uv",
+				"type": "process",
+				"args": [
+					"run",
+					"pre-commit",
+					"run",
+					"--all",
+				],
+				"problemMatcher": [
+					"$tsc"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"dependsOn": [
+					"pre-commit install"
+				],
+				"icon": {
+					"id": "microscope",
+					"color": "terminal.ansiCyan"
+				},
 			},
 		]
 	}
