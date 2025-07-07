@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+
+$schema: https://aka.ms/configuration-dsc-schema/0.2
+properties:
+  configurationVersion: "0.2.0"
+  resources:
+    - resource: WinGetPackage
+      id: addCode
+      directives:
+        module: Microsoft.WinGet.DSC
+        securityContext: elevated
+        allowPrerelease: true
+      settings:
+        id: Microsoft.VisualStudioCode
+        source: winget
+        InstallMode: Interactive
+    - resource: WinGetPackage
+      id: addGit
+      dependsOn:
+        - addCode
+      directives:
+        module: Microsoft.WinGet.DSC
+        securityContext: elevated
+        allowPrerelease: true
+      settings:
+        id: Git.Git
+        source: winget
+        InstallMode: Interactive
+    - resource: Script
+      id: addUv
+      directives:
+        description: install uv
+        module: PSDscResources
+        securityContext: current
+        allowPrerelease: true
+      settings:
+        GetScript: |
+          @{ Result = $null -ne (Get-Command uv -ErrorAction SilentlyContinue) }
+        TestScript: |
+          return $null -ne (Get-Command uv -ErrorAction SilentlyContinue)
+        SetScript: |
+          & powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
