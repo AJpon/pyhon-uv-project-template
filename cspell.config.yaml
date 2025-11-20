@@ -1,9 +1,17 @@
 $schema: https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json
 version: "0.2"
+import:
+- https://cdn.jsdelivr.net/npm/@cspell/dict-en-gb/cspell-ext.json
 allowCompoundWords: true
 useGitignore: true
+dictionaryDefinitions:
+  - name: customwords
+    path: .cspell/customwords.txt
 words: []
 dictionaries:
+  - customwords.txt
+  - en_US
+  - en-gb
   - python
   - python-common
   - powershell
@@ -11,7 +19,7 @@ dictionaries:
   - shellscript
   - win32
 ignorePaths:
-  - pyproject.toml
+  - "*.toml"
   - .pre-commit-config.yaml
   - "*.code-workspace"
   - "*.ui"

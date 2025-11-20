@@ -1,13 +1,11 @@
 version: 2
 updates:
-- package-ecosystem: pip
+- package-ecosystem: uv
   directory: "/"
   schedule:
-    interval: daily
-    time: "13:00"
-  open-pull-requests-limit: 10
-  reviewers:
-  - dciborow
+    interval: semiannually
+    timezone: Asia/Tokyo
+  open-pull-requests-limit: 4
   allow:
   - dependency-type: direct
   - dependency-type: indirect
