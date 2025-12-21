@@ -1,7 +1,8 @@
+# MARK: - Project
 [project]
 name = "python-uv-project-template"
 version = "0.1.0"
-authors = [{ name = "Takahiro Ono" }]
+authors = [{name = "Takahiro Ono"}]
 maintainers = []
 description = "Add your description here"
 readme = "README.md"
@@ -11,19 +12,24 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.9",
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.9, <3.13"
 dependencies = []
 
 [dependency-groups]
 dev = [
+    "flake8-class-attributes-order>=0.3.0",
+    "flake8>=7.0.0",
     "mypy>=1.16.1",
-    "pre-commit>=4.0.1",
+    "pre-commit>=4.2.0",
     "pylint>=3.3.7",
-    "pytest>=8.3.3",
-    "ruff>=0.7.1",
+    "pyproject-flake8>=7.0.0",
+    "pytest>=8.4.1",
+    "ruff>=0.12.2",
 ]
 
 # [project.urls]
@@ -31,39 +37,61 @@ dev = [
 # Issues = "https://github.com"
 # Source = "https://github.com"
 
+# [project.entry-points."SAMPLE_ENTRY_POINT_GROUP"]
+# Add your entry points here.
+
 [project.scripts]
 # Add your scripts here.
 
+[project.gui-scripts]
+# Add your gui scripts here. (Windows only)
+
+[tool.uv.workspace]
+members = ["tools/*","scripts/*"]
+
+[tool.uv.sources]
+
+# MARK: - Build
 [build-system]
-requires = ["uv_build>=0.7.19,<0.9.0"]
+requires = ["uv_build>=0.9.7,<0.10.0"]
 build-backend = "uv_build"
 
 [tool.uv.build-backend]
-module-name = "python_package"
 module-root = "src"
+module-name = ["python_package"]
 # source-include = ["src/python_package/**"]
 
+[tool.uv.build-backend.data]
+headers = "include/headers"
+scripts = "bin"
+data = "share"
+
+# MARK: - Tool Settings
 [tool.pylint]
 # lint only unsupported features on py311
 disable = ["all"]
-enable = ["F", "E"]
+enable = ["E", "F"]
 py-version = "3.11"
+prefer-stubs = true
+ignored-modules = []
+ignore-paths = ["typings", "scripts"]
+extension-pkg-whitelist = []
 
 [tool.ruff]
+extend-exclude = []
 target-version = "py311"
 
 [tool.ruff.lint]
-select = ["E4", "E7", "E9", "F"]
-ignore = []
-extend-select = ["UP"]
-
 fixable = ["ALL"]
-unfixable = []
-
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+extend-select = ["UP", "D"]
+ignore = ["D1"]
+unfixable = ["D"]
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.ruff.format]
 quote-style = "double"
@@ -72,3 +100,31 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 docstring-code-format = false
 docstring-code-line-length = "dynamic"
+
+[tool.flake8]
+# https://github.com/best-doctor/flake8-class-attributes-order
+select = "CCE"
+class_attributes_order = [
+    "constant",
+    "field",
+    "outer_field",
+    "protected field",
+    "private field",
+    "property_method",
+    "protected_property_method",
+    "private_property_method",
+    "__new__",
+    "__init__",
+    "__post_init__",
+    "magic_method",
+    "static_method",
+    "class_method",
+    "method",
+    "protected_static_method",
+    "protected_class_method",
+    "protected_method",
+    "private_static_method",
+    "private_class_method",
+    "private_method",
+    "nested_class",
+]

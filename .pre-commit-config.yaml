@@ -1,6 +1,9 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 
+default_language_version:
+  python: python3.9
+
 exclude: "\
   .*pyi$|\
   .vscode\/.*json$|\
@@ -8,29 +11,13 @@ exclude: "\
   (README|LICEN[SC]E)(\\..+)?$\
   "
 
-default_language_version:
-  python: python3
-
 ci:
   autoupdate_commit_msg: "chore: update pre-commit hooks"
   autofix_commit_msg: "style: pre-commit fixes"
 
 repos:
-  - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.7.12
-    hooks:
-      - id: uv-sync
-        args: [--locked, --all-packages]
-        stages: [pre-commit, post-checkout, post-merge]
-      - id: uv-lock
-        args: [--upgrade]
-      - id: uv-export
-        args: [-o, requirements.txt]
-      - id: uv-export
-        args: [--only-dev, -o, requirements-dev.txt]
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -39,34 +26,42 @@ repos:
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-yaml
-      - id: debug-statements
       - id: end-of-file-fixer
       - id: mixed-line-ending
-      - id: requirements-txt-fixer
       - id: trailing-whitespace
-
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.20.0
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.9.7
     hooks:
-      - id: pyupgrade
-        args: [--py311-plus]
+      - id: uv-sync
+        args: [ --all-extras ]
+        stages: [pre-commit, post-checkout, post-merge]
+        # additional_dependencies: [keyring]
+      - id: uv-lock
+      - id: uv-export
+        name: uv-export requirements.txt
+        args: [-o, requirements.txt]
+      - id: uv-export
+        name: uv-export requirements-dev.txt
+        args: [--only-dev, -o, requirements-dev.txt]
+      - id: uv-export
+        name: uv-export pylock.toml
+        args: [-o, pylock.toml]
 
   - repo: https://github.com/streetsidesoftware/cspell-cli
-    rev: v9.0.1
+    rev: v9.2.0
     hooks:
       - id: cspell
 
   - repo: https://github.com/pylint-dev/pylint
-    rev: v3.3.7
+    rev: v3.3.8
     hooks:
       - id: pylint
         types: [python]
         language: system
         entry: uv run pylint
-        args: ["-rn"]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.13
+    rev: v0.12.11
     hooks:
       - id: ruff-check
         args: [--fix, --exit-non-zero-on-fix]
