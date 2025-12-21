@@ -9,9 +9,24 @@
         "files.insertFinalNewline": true,
         "files.trimFinalNewlines": true,
         "files.trimTrailingWhitespace": true,
-        "flake8.enabled": false,
+        "flake8.enabled": true,
+        "flake8.interpreter": [
+            "uv",
+            "run",
+            "python"
+        ],
         "git.autofetch": true,
+        "mypy-type-checker.interpreter": [
+            "uv",
+            "run",
+            "python"
+        ],
         "pylint.enabled": true,
+        "pylint.interpreter": [
+            "uv",
+            "run",
+            "python"
+        ],
         "python.analysis.exclude": [
             "**/build",
             "**/dist",
@@ -40,6 +55,11 @@
             "./tests",
             "-p",
             "test_*.py"
+        ],
+        "ruff.interpreter": [
+            "uv",
+            "run",
+            "python"
         ],
         "yaml.completion": true,
         "yaml.format.enable": true,
@@ -84,6 +104,7 @@
             "aaron-bond.better-comments",
             "charliermarsh.ruff",
             "ms-python.debugpy",
+            "ms-python.flake8",
             "ms-python.pylint",
             "ms-python.python",
             "ms-python.vscode-pylance",

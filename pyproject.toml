@@ -73,9 +73,9 @@ disable = ["all"]
 enable = ["E", "F"]
 py-version = "3.11"
 prefer-stubs = true
-# ignored-modules = []
-# ignore-paths = []
-# extension-pkg-whitelist = []
+ignored-modules = []
+ignore-paths = ["typings", "scripts"]
+extension-pkg-whitelist = []
 
 [tool.ruff]
 extend-exclude = []
@@ -85,6 +85,7 @@ target-version = "py311"
 fixable = ["ALL"]
 extend-select = ["UP", "D"]
 ignore = ["D1"]
+unfixable = ["D"]
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
