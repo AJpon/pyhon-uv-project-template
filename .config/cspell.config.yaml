@@ -6,7 +6,7 @@ allowCompoundWords: true
 useGitignore: true
 dictionaryDefinitions:
   - name: customwords
-    path: .cspell/customwords.txt
+    path: customwords.txt
 words: []
 dictionaries:
   - customwords.txt

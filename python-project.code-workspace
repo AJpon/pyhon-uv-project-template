@@ -6,25 +6,26 @@
     ],
     "settings": {
         "evenBetterToml.taplo.configFile.path": ".taplo.toml",
-        "files.insertFinalNewline": true,
-        "files.trimFinalNewlines": true,
-        "files.trimTrailingWhitespace": true,
         "flake8.enabled": true,
+        "flake8.importStrategy": "fromEnvironment",
         "flake8.interpreter": [
-            "uv",
-            "run",
+            "uvx",
             "python"
         ],
-        "git.autofetch": true,
+        "flake8.path": [
+            "pflake8"
+        ],
+        "mypy-type-checker.importStrategy": "fromEnvironment",
         "mypy-type-checker.interpreter": [
-            "uv",
-            "run",
+            "uvx",
             "python"
         ],
+        "mypy-type-checker.preferDaemon": true,
+        "mypy-type-checker.reportingScope": "workspace",
         "pylint.enabled": true,
+        "pylint.importStrategy": "fromEnvironment",
         "pylint.interpreter": [
-            "uv",
-            "run",
+            "uvx",
             "python"
         ],
         "python.analysis.exclude": [
@@ -47,20 +48,12 @@
         "python.autoComplete.extraPaths": [],
         "python.terminal.activateEnvInCurrentTerminal": true,
         "python.testing.pytestEnabled": true,
-        "python.testing.unittestEnabled": true,
+        "python.analysis.enablePytestSupport": true,
+        "python.terminal.shellIntegration.enabled": true,
         "python.testing.autoTestDiscoverOnSaveEnabled": true,
-        "python.testing.unittestArgs": [
-            "-v",
-            "-s",
-            "./tests",
-            "-p",
-            "test_*.py"
-        ],
-        "ruff.interpreter": [
-            "uv",
-            "run",
-            "python"
-        ],
+        "ruff.importStrategy": "useBundled",
+        "ty.diagnosticMode": "workspace",
+        "ty.importStrategy": "useBundled",
         "yaml.completion": true,
         "yaml.format.enable": true,
         "yaml.hover": true,
@@ -72,9 +65,6 @@
             ]
         },
         "yaml.validate": true,
-        "[jsonc]": {
-            "editor.defaultFormatter": "vscode.json-language-features"
-        },
         "[python]": {
             "editor.defaultFormatter": "charliermarsh.ruff",
             "editor.formatOnSave": true,
@@ -88,7 +78,6 @@
         },
         "[yaml]": {
             "editor.insertSpaces": true,
-            "editor.tabSize": 2,
             "editor.autoIndent": "keep",
             "diffEditor.ignoreTrimWhitespace": false,
             "editor.quickSuggestions": {
@@ -97,12 +86,14 @@
                 "strings": true
             },
             "editor.defaultFormatter": "redhat.vscode-yaml",
-        },
+        }
     },
     "extensions": {
         "recommendations": [
             "aaron-bond.better-comments",
+            "astral-sh.ty",
             "charliermarsh.ruff",
+            "editorconfig.editorconfig",
             "ms-python.debugpy",
             "ms-python.flake8",
             "ms-python.pylint",
@@ -115,14 +106,20 @@
             "streetsidesoftware.code-spell-checker-win32",
             "tamasfe.even-better-toml",
         ],
+        "unwantedRecommendations": [
+            "ms-pyright.pyright",
+            "ms-python.mypy-type-checker"
+        ]
     },
     "launch": {
         "version": "0.2.0",
+        "inputs": [],
         "configurations": [],
         "compounds": [],
     },
     "tasks": {
         "version": "2.0.0",
+        "inputs": [],
         "tasks": [
             {
                 "label": "Sync dependencies",
@@ -139,25 +136,6 @@
                 },
                 "icon": {
                     "id": "symbol-constructor",
-                },
-            },
-            {
-                "label": "Upgrade dependencies",
-                "command": "uv",
-                "type": "process",
-                "args": [
-                    "sync",
-                    "--upgrade"
-                ],
-                "presentation": {
-                    "reveal": "always"
-                },
-                "problemMatcher": [
-                    "$tsc"
-                ],
-                "icon": {
-                    "id": "arrow-up",
-                    "color": "terminal.ansiGreen"
                 },
             },
             {
