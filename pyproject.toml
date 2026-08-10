@@ -1,3 +1,7 @@
+[build-system]
+requires = ["uv_build>=0.12.0,<0.13.0"]
+build-backend = "uv_build"
+
 # MARK: - Project
 [project]
 name = "python-uv-project-template"
@@ -8,6 +12,7 @@ description = "Add your description here"
 readme = "README.md"
 license-files = ["LICEN[CS]E"]
 classifiers = [
+    "Private :: Do Not Upload",
     "Development Status :: 1 - Planning",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
@@ -15,25 +20,8 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
-requires-python = ">=3.11, <3.14"
+requires-python = ">=3.11, <3.15"
 dependencies = []
-
-[tool.uv]
-required-version = ">=0.11.7,<0.12.0"
-
-[tool.uv.dependency-groups]
-dev = {requires-python = ">=3.13"}
-
-[dependency-groups]
-dev = [
-    "flake8-class-attributes-order>=0.3.0",
-    "pre-commit>=4.5.1",
-    "pylint>=4.0.5",
-    "pyproject-flake8>=7.0.0",
-    "pytest>=9.0.3",
-    "ruff>=0.15.11",
-    "ty>=0.0.31",
-]
 
 # [project.urls]
 # Documentation = "https://github.com"
@@ -43,56 +31,74 @@ dev = [
 # [project.entry-points."SAMPLE_ENTRY_POINT_GROUP"]
 # Add your entry points here.
 
-[project.scripts]
+# [project.scripts]
 # Add your scripts here.
 
-[project.gui-scripts]
+# [project.gui-scripts]
 # Add your gui scripts here. (Windows only)
 
+[tool.uv]
+required-version = ">=0.12.0,<0.13.0"
+environments = []
+
 [tool.uv.workspace]
-members = ["scripts/*", "tools/*"]
+members = [
+    "packages/*",
+    "scripts/*",
+    "tools/*",
+]
 
 [tool.uv.sources]
 
-# MARK: - Build
-[build-system]
-requires = ["uv_build>=0.11.7,<0.12.0"]
-build-backend = "uv_build"
+[tool.uv.dependency-groups]
+dev = {requires-python = ">=3.14"}
 
+[dependency-groups]
+dev = [
+    "pre-commit>=4.6.1",
+    "taskipy>=1.14.1",
+    {include-group = "lint"},
+    {include-group = "test"},
+]
+lint = [
+    "flake8-class-attributes-order>=0.3.0",
+    "pyproject-flake8>=7.0.0",
+    "ruff>=0.15.11",
+]
+test = [
+    "pytest>=9.1.1",
+]
+
+# MARK: - Build
 [tool.uv.build-backend]
 module-root = "src"
 module-name = ["python_package"]
-# source-include = ["src/python_package/**"]
+# source-include = []
+# source-exclude = []
+# wheel-exclude = []
 
-[tool.uv.build-backend.data]
-headers = "include/headers"
-scripts = "bin"
-data = "share"
+# [tool.uv.build-backend.data]
+# headers = "include/headers"
+# scripts = "bin"
+# data = "share"
 
 # MARK: - Tool Settings
-[tool.pylint]
-# lint only unsupported features on py311
-disable = ["all"]
-enable = ["E", "F"]
-py-version = "3.11"
-prefer-stubs = true
-ignored-modules = []
-ignore-paths = ["scripts", "typings"]
-extension-pkg-whitelist = []
-
-[tool.ty.environment]
-python-version = "3.11"
-
 [tool.ruff]
 extend-exclude = []
-target-version = "py311"
 
 [tool.ruff.lint]
 fixable = ["ALL"]
-extend-select = ["D", "UP"]
+extend-select = [
+    "I",   # isort
+    "DOC", # pydoclint
+    "D",   # pydocstyle
+    "PLE", # Pylint Errors
+    "UP",  # pyupgrade
+]
 ignore = [
-    "D1",
-    "D415",
+    "D106", # Magic method docstring is missing
+    "D403", # First word in docstring should be capitalized (Ignore for non-English)
+    "D415", # First line should end with a period (Ignore for non-English)
 ]
 unfixable = ["D"]
 

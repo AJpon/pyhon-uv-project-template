@@ -51,6 +51,7 @@
         "python.analysis.enablePytestSupport": true,
         "python.terminal.shellIntegration.enabled": true,
         "python.testing.autoTestDiscoverOnSaveEnabled": true,
+        "ruff.format.backend": "uv",
         "ruff.importStrategy": "useBundled",
         "ty.diagnosticMode": "workspace",
         "ty.importStrategy": "useBundled",
@@ -128,10 +129,8 @@
                 "args": [
                     "sync"
                 ],
-                "problemMatcher": [
-                    "$tsc"
-                ],
                 "presentation": {
+                    "group": "uv",
                     "reveal": "always"
                 },
                 "icon": {
@@ -145,10 +144,8 @@
                 "args": [
                     "build"
                 ],
-                "problemMatcher": [
-                    "$tsc"
-                ],
                 "presentation": {
+                    "group": "uv",
                     "reveal": "always"
                 },
                 "dependsOn": "Sync dependencies",
@@ -167,10 +164,8 @@
                     "pre-commit",
                     "install"
                 ],
-                "problemMatcher": [
-                    "$tsc"
-                ],
                 "presentation": {
+                    "group": "pre-commit",
                     "reveal": "always"
                 },
                 "dependsOn": [
@@ -191,10 +186,8 @@
                     "run",
                     "--all",
                 ],
-                "problemMatcher": [
-                    "$tsc"
-                ],
                 "presentation": {
+                    "group": "pre-commit",
                     "reveal": "always"
                 },
                 "dependsOn": [
