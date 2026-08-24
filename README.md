@@ -1,10 +1,9 @@
 # Python uv Project Template
 
 ![GitHub License](https://img.shields.io/github/license/AJpon/pyhon-uv-project-template)
-[![Python](https://img.shields.io/badge/python-3.12%20%7C%203.11%20%7C%203.10%20%7C%203.9-blue.svg)](https://www.python.org/)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg?logo=python&logoColor=ffdd54)](https://www.python.org/)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Code style: ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/refs/heads/main/assets/badge/format.json)](https://github.com/astral-sh/ruff)
 
 ## Development
 
