@@ -156,3 +156,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#########################################################
+# User added entries below this line
+# - Please do not remove this line or the above entries, as they are important for the project
+##########################################################
+
+!.python-version

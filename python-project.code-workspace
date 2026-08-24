@@ -204,9 +204,6 @@
                     "Sync dependencies",
                     "pre-commit install"
                 ],
-                "problemMatcher": [
-                    "$tsc"
-                ],
                 "isBackground": true,
                 "presentation": {
                     "echo": true,

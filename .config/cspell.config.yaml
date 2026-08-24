@@ -6,10 +6,18 @@ allowCompoundWords: true
 useGitignore: true
 dictionaryDefinitions:
   - name: customwords
-    path: customwords.txt
+    path: cspell/customwords.txt
+  - name: agent-mutable
+    path: cspell/agent-mutable.txt
+    description: |
+      A custom dictionary managed by an AI agent.
+      This is the only dictionary the agent may edit; users are not expected to edit it directly.
+    addWords: false
+    noSuggest: true
 words: []
 dictionaries:
-  - customwords.txt
+  - agent-mutable
+  - customwords
   - en_US
   - en-gb
   - python
